@@ -7,7 +7,7 @@ export const GetRemoteOwnerAndRepository = async () => {
   const remoteUri = config.values[".git/config"]["remote.origin.url"] as string;
 
   const regExMatches = remoteUri.match(
-    /[:|\/]([-_0-9a-zA-Z]+)\/([-_0-9a-zA-Z]+).git/
+    /[:|\/]([-_0-9a-zA-Z]+)\/([-_0-9a-zA-Z]+)(.git|$)/
   );
 
   if (regExMatches == null) {
@@ -24,7 +24,7 @@ export const GetGithubApiUri = async () => {
   const config = await git.listConfig();
   const remoteUri = config.values[".git/config"]["remote.origin.url"] as string;
 
-  const regExMatches = remoteUri.match(/[:|\/@]([-_0-9a-zA-Z.]+).*.git/);
+  const regExMatches = remoteUri.match(/[:|\/@]([-_0-9a-zA-Z.]+).*/);
 
   if (regExMatches == null) {
     throw new Error("Failed to parse api uri from remote origin");
