@@ -1,0 +1,13 @@
+{
+  "name": "azure-devops-extensions",
+  "version": "0.0.1",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "build": "tsc src/GithubVersionTask/index.ts"
+  },
+  "author": "Jarlotee",
+  "license": "MIT"
+}

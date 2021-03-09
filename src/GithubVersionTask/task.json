@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "e77a1433-b3fc-4a29-8d0e-cce20516b5e0",
+  "name": "GithubVersionTask",
+  "friendlyName": "Github Version Task",
+  "description": "Uses pull request history and tags to generate a semantic version",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "author": "Jarlotee",
+  "version": {
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 3
+  },
+  "instanceNameFormat": "Version",
+  "inputs": [
+    {
+      "name": "GitHubConnection",
+      "type": "connectedService:githubenterprise:OAuth,OAuth2,PersonalAccessToken,Token",
+      "label": "GitHub connection (OAuth or PAT)",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "Specify the name of the GitHub service connection to use to connect to the GitHub repository. The connection must be based on a GitHub user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
+    }
+  ],
+  "execution": {
+    "Node10": {
+      "target": "index.js"
+    }
+  }
+}

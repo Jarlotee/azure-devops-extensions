@@ -1,0 +1,8 @@
+{
+  "name": "githubversiontask",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^3.1.0",
+    "simple-git": "^2.36.1"
+  },
+  "devDependencies": {}
+}
