@@ -118,3 +118,6 @@ dist
 # generated output
 *.js
 *.vsix
+
+# extension specific stuff
+.taskkey
