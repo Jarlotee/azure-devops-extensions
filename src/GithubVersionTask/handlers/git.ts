@@ -1,6 +1,6 @@
 import SimpleGit from "simple-git";
 import { GithubRepository } from "../types";
-import { isStandardRelease, parseStandardRelease } from "../util";
+import { parseStandardRelease } from "../util";
 
 const git = SimpleGit();
 
@@ -60,7 +60,7 @@ export const GetLastStandardTag = async () => {
       "[0-9]*-*",
     ]);
 
-    return parseStandardRelease(tag);
+    return parseStandardRelease(tag.replace(/^\s+|\s+$/g, ""));
   } catch (error) {}
 
   return null;

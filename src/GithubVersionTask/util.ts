@@ -8,7 +8,7 @@ export const parseStandardRelease = (tag: string) => {
   const parsedLatestTag = tag.match(standardReleaseRegex);
 
   if (!parsedLatestTag) {
-    throw new Error(`Tag is does not match standard release format [${tag}]`);
+    throw new Error(`Tag does not match standard release format [${tag}]`);
   }
 
   return {
