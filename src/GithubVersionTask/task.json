@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 0,
-    "Patch": 7
+    "Patch": 15
   },
   "instanceNameFormat": "Version",
   "inputs": [
@@ -18,9 +18,15 @@
       "name": "GitHubConnection",
       "type": "connectedService:Github",
       "label": "GitHub Connection",
-      "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "Specify the name of the GitHub service connection to use to connect to the GitHub repository. The connection must be based on a GitHub user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
+      "required": false,
+      "helpMarkDown": "Specify the name of the GitHub service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
+    },
+    {
+      "name": "GitHubEnterpriseConnection",
+      "type": "connectedService:GithubEnterprise",
+      "label": "GitHub Enterprise Connection",
+      "required": false,
+      "helpMarkDown": "Specify the name of the GitHub Enterprise service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
     }
   ],
   "execution": {

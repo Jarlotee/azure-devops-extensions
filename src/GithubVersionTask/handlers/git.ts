@@ -1,43 +1,44 @@
 import SimpleGit from "simple-git";
+import { GithubRepository } from "../types";
+import { isStandardRelease, parseStandardRelease } from "../util";
 
 const git = SimpleGit();
 
-export const GetRemoteOwnerAndRepository = async () => {
+export const GetRepository = async (): Promise<GithubRepository> => {
   const config = await git.listConfig();
   const remoteUri = config.values[".git/config"]["remote.origin.url"] as string;
 
-  const regExMatches = remoteUri.match(
-    /[:|\/]([-_0-9a-zA-Z]+)\/([-_0-9a-zA-Z]+)(.git|$)/
-  );
-
-  if (regExMatches == null) {
-    throw new Error("Failed to parse owner and repository from remote origin");
-  }
-  console.debug("stuff", remoteUri);
-  const owner = regExMatches[1];
-  const repository = regExMatches[2];
-
-  return { owner, repository };
+  return parseRepository(remoteUri);
 };
 
-export const GetGithubApiUri = async () => {
-  const config = await git.listConfig();
-  const remoteUri = config.values[".git/config"]["remote.origin.url"] as string;
+function parseRepository(remoteUri: string): GithubRepository {
+  const repositoryMatches = remoteUri.match(
+    /[:|\/]([-_0-9a-zA-Z]+)\/([-_0-9a-zA-Z]+)(.git|$)/
+  );
+  const domainMatches = remoteUri.match(/[:|\/@]([-_0-9a-zA-Z.]+).*/);
 
-  const regExMatches = remoteUri.match(/[:|\/@]([-_0-9a-zA-Z.]+).*/);
+  if (repositoryMatches == null) {
+    throw new Error("Failed to parse owner and repository from remote origin");
+  }
 
-  if (regExMatches == null) {
+  if (domainMatches == null) {
     throw new Error("Failed to parse api uri from remote origin");
   }
 
-  const domain = regExMatches[1];
+  let domain = domainMatches[1].toLowerCase();
+  let api = "";
 
-  if (domain.toLowerCase() === "github.com") {
-    return "https://api.github.com";
+  if (domain === "github.com") {
+    api = "https://api.github.com";
   } else {
-    return `https://${domain}/api/v3`;
+    api = `https://${domain}/api/v3`;
   }
-};
+
+  const owner = repositoryMatches[1];
+  const name = repositoryMatches[2];
+
+  return { owner, name, api };
+}
 
 export const GetCurrentBranch = async () => {
   return git.revparse(["--abbrev-ref", "HEAD"]);
@@ -45,4 +46,22 @@ export const GetCurrentBranch = async () => {
 
 export const GetCurrentCommit = async () => {
   return git.revparse(["HEAD"]);
+};
+
+export const GetLastStandardTag = async () => {
+  try {
+    const tag = await git.raw([
+      "describe",
+      "--abbrev=0",
+      "--tags",
+      "--match",
+      "[0-9]*.[0-9]*.[0-9]*",
+      "--exclude",
+      "[0-9]*-*",
+    ]);
+
+    return parseStandardRelease(tag);
+  } catch (error) {}
+
+  return null;
 };
