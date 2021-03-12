@@ -9,7 +9,7 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "build": "tsc src/GithubVersionTask/index.ts"
+    "build": "tsc tasks/GithubVersionTask/src/index.ts"
   },
   "author": "Jarlotee",
   "license": "MIT"

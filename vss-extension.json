@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "azure-devops-extensions",
   "name": "Jarlotee Azure Devops Extensions",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "publisher": "jarlotee",
   "targets": [
     {
@@ -12,11 +12,11 @@
   "description": "Custom tools for building and releasing",
   "categories": ["Azure Pipelines"],
   "icons": {
-    "default": "images/extension-icon.png"
+    "default": "tasks/images/extension-icon.png"
   },
   "files": [
     {
-      "path": "src/GithubVersionTask"
+      "path": "tasks/GithubVersionTask"
     }
   ],
   "contributions": [
@@ -25,7 +25,7 @@
       "type": "ms.vss-distributed-task.task",
       "targets": ["ms.vss-distributed-task.tasks"],
       "properties": {
-        "name": "src/GithubVersionTask"
+        "name": "tasks/GithubVersionTask"
       }
     }
   ]

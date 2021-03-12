@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 0,
-    "Patch": 17
+    "Patch": 18
   },
   "instanceNameFormat": "Version",
   "inputs": [
@@ -31,7 +31,7 @@
   ],
   "execution": {
     "Node10": {
-      "target": "index.js"
+      "target": "src/index.js"
     }
   }
 }
