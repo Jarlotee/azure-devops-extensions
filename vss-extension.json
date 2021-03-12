@@ -12,7 +12,7 @@
   "description": "Custom tools for building and releasing",
   "categories": ["Azure Pipelines"],
   "icons": {
-    "default": "tasks/images/extension-icon.png"
+    "default": "extension-icon.png"
   },
   "files": [
     {
