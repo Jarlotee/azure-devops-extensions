@@ -48,9 +48,11 @@ export const GetLatestReleaseVersion = async (
 
   for (let index = 0; index < recentReleases.length; index++) {
     const release = recentReleases[index];
+    const prerelease = release.prerelease as boolean;
+    const draft = release.draft as boolean;
     const tag = release.tag_name as string;
 
-    if (isStandardRelease(tag)) {
+    if (!prerelease && !draft && isStandardRelease(tag)) {
       return parseStandardRelease(tag);
     }
   }
