@@ -1,10 +1,12 @@
+import { Version } from "./types";
+
 const standardReleaseRegex = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:\+[0-9A-Za-z-]+)?$/;
 
 export const isStandardRelease = (tag: string) => {
   return standardReleaseRegex.test(tag);
 };
 
-export const parseStandardRelease = (tag: string) => {
+export const parseStandardRelease = (tag: string) : Version  => {
   const parsedLatestTag = tag.match(standardReleaseRegex);
 
   if (!parsedLatestTag) {
@@ -15,5 +17,6 @@ export const parseStandardRelease = (tag: string) => {
     major: parseInt(parsedLatestTag[1]),
     minor: parseInt(parsedLatestTag[2]),
     patch: parseInt(parsedLatestTag[3]),
+    raw: tag
   };
 };

@@ -1,4 +1,3 @@
-* add raw string version of version
 * grab pr history and build stuff
   * write (no pull request history found) if we dont have anything
 * create a new version
@@ -9,4 +8,4 @@
 * in a subsequent part (with a gate) upgrade from pre-release
 
 [Ideas]
-Create pre-release at end of build cycle => use output from prior pipeline as input to new pipeline (e.g. deploy x ) for containers (all youd need is the version to promote it)
+Create pre-release at end of build cycle => use output from prior pipeline as input to new pipeline (e.g. deploy x ) for containers (all youd need is the version to promote it) [Requires Artifacts]
