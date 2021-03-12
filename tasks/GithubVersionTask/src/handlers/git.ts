@@ -1,6 +1,6 @@
 import SimpleGit from "simple-git";
 import { GithubRepository } from "../types";
-import { parseStandardRelease } from "../util";
+import { parseStandardRelease } from "./util";
 
 const git = SimpleGit();
 

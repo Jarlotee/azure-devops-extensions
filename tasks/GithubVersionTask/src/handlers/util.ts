@@ -1,4 +1,4 @@
-import { Version } from "./types";
+import { Version } from "../types";
 
 const standardReleaseRegex = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:\+[0-9A-Za-z-]+)?$/;
 

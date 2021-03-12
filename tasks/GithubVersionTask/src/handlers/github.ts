@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 import { GithubRepository } from "../types";
-import { isStandardRelease, parseStandardRelease } from "../util";
+import { isStandardRelease, parseStandardRelease } from "./util";
 
 export const GetLatestReleaseVersion = async (
   authToken: string,
