@@ -27,6 +27,20 @@
       "label": "GitHub Enterprise Connection",
       "required": false,
       "helpMarkDown": "Specify the name of the GitHub Enterprise service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
+    },
+    {
+      "name": "IsHotFix",
+      "type": "boolean",
+      "label": "Hotfix",
+      "required": false,
+      "helpMarkDown": "Indicates whether the build is a hotfix. Ignores versioning in favor of adding build metadata."
+    },
+    {
+      "name": "PreReleaseDecorator",
+      "type": "string",
+      "label": "Pre-release Decorator",
+      "required": false,
+      "helpMarkDown": "A decorator to indicate a pre-release such as alpha, beta, or rc"
     }
   ],
   "execution": {

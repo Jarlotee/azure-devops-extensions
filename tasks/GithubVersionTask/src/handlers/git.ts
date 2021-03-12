@@ -1,6 +1,5 @@
 import SimpleGit from "simple-git";
 import { GithubRepository } from "../types";
-import { parseStandardRelease } from "./util";
 
 const git = SimpleGit();
 
@@ -45,10 +44,10 @@ export const GetCurrentBranch = async () => {
 };
 
 export const GetCurrentCommit = async () => {
-  return git.revparse(["HEAD"]);
+  return git.revparse(["--short", "HEAD"]);
 };
 
-export const GetLastStandardTag = async () => {
+export const GetNearestTag = async (before?: string) => {
   try {
     const tag = await git.raw([
       "describe",
@@ -56,11 +55,10 @@ export const GetLastStandardTag = async () => {
       "--tags",
       "--match",
       "[0-9]*.[0-9]*.[0-9]*",
-      "--exclude",
-      "[0-9]*-*",
+      before ? `${before}~1` : "",
     ]);
 
-    return parseStandardRelease(tag.replace(/^\s+|\s+$/g, ""));
+    return tag.replace(/^\s+|\s+$/g, "");
   } catch (error) {}
 
   return null;

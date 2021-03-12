@@ -1,61 +1,31 @@
 import fetch from "node-fetch";
 
 import { GithubRepository } from "../types";
-import { isStandardRelease, parseStandardRelease } from "./util";
 
-export const GetLatestReleaseVersion = async (
-  authToken: string,
-  repository: GithubRepository
-) => {
+export const isTagReleased = async (githubApiToken: string, githubRepository: GithubRepository, tag: string | null) => {
+  if(!tag) {
+    return false;
+  }
+
   const options = {
     method: "GET",
     headers: {
       Accept: "application/vnd.github.v3+json",
-      Authorization: `Token ${authToken}`,
+      Authorization: `Token ${githubApiToken}`,
     },
   };
 
-  const latestReleaseResponse = await fetch(
-    `${repository.api}/repos/${repository.owner}/${repository.name}/releases/latest`,
+  const releaseResponse = await fetch(
+    `${githubRepository.api}/repos/${githubRepository.owner}/${githubRepository.name}/releases/tags/${tag}`,
     options
   );
 
-  if (!latestReleaseResponse.ok) {
-    return null;
+  if (!releaseResponse.ok) {
+    return false;
   }
 
-  const latestRelease = await latestReleaseResponse.json();
-  const latestTag = latestRelease.tag_name as string;
+  const release = await releaseResponse.json();
+  const isDraft = release.draft as boolean;
 
-  if (!latestTag) {
-    throw new Error("Latest release does not have a tag name");
-  }
-
-  if (isStandardRelease(latestTag)) {
-    return parseStandardRelease(latestTag);
-  }
-
-  const recentReleasesResponse = await fetch(
-    `${repository.api}/repos/${repository.owner}/${repository.name}/releases?per_page=25`,
-    options
-  );
-
-  if (!recentReleasesResponse.ok) {
-    throw new Error("Failed to get recent to get recent releases");
-  }
-
-  const recentReleases = await recentReleasesResponse.json();
-
-  for (let index = 0; index < recentReleases.length; index++) {
-    const release = recentReleases[index];
-    const prerelease = release.prerelease as boolean;
-    const draft = release.draft as boolean;
-    const tag = release.tag_name as string;
-
-    if (!prerelease && !draft && isStandardRelease(tag)) {
-      return parseStandardRelease(tag);
-    }
-  }
-
-  return null;
-};
+  return !isDraft;
+}
