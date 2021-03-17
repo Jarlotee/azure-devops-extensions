@@ -14,7 +14,6 @@ export const ParseVersion = (tag: string): Version => {
     minor: parseInt(parsedVersion[2]),
     patch: parseInt(parsedVersion[3]),
     preRelease: parsedVersion[4],
-    build: parsedVersion[5],
-    raw: tag,
+    buildMetadata: parsedVersion[5],
   };
 };

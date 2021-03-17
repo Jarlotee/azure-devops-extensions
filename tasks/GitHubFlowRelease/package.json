@@ -1,5 +1,5 @@
 {
-  "name": "githubversiontask",
+  "name": "github-flow-release",
   "dependencies": {
     "azure-pipelines-task-lib": "^3.1.0",
     "node-fetch": "^2.6.1",

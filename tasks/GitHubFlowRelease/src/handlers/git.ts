@@ -1,4 +1,4 @@
-import SimpleGit from "simple-git";
+import SimpleGit, { LogOptions } from "simple-git";
 import { GithubRepository } from "../types";
 
 const git = SimpleGit();
@@ -36,30 +36,9 @@ function parseRepository(remoteUri: string): GithubRepository {
   const owner = repositoryMatches[1];
   const name = repositoryMatches[2];
 
-  return { owner, name, api };
+  return { owner, name, api, domain };
 }
 
-export const GetCurrentBranch = async () => {
-  return git.revparse(["--abbrev-ref", "HEAD"]);
-};
-
 export const GetCurrentCommit = async () => {
-  return git.revparse(["--short", "HEAD"]);
-};
-
-export const GetNearestTag = async (before?: string) => {
-  try {
-    const tag = await git.raw([
-      "describe",
-      "--abbrev=0",
-      "--tags",
-      "--match",
-      "[0-9]*.[0-9]*.[0-9]*",
-      before ? `${before}~1` : "",
-    ]);
-
-    return tag.replace(/^\s+|\s+$/g, "");
-  } catch (error) {}
-
-  return null;
+  return git.revparse(["HEAD"]);
 };

@@ -1,8 +1,8 @@
 {
   "manifestVersion": 1,
   "id": "azure-devops-extensions",
-  "name": "Jarlotee Azure Devops Extensions",
-  "version": "0.0.18",
+  "name": "Jarlotee's Azure Devops Extensions",
+  "version": "0.0.33",
   "publisher": "jarlotee",
   "targets": [
     {
@@ -16,16 +16,27 @@
   },
   "files": [
     {
-      "path": "tasks/GithubVersionTask"
+      "path": "tasks/GithubFlowVersion"
+    },
+    {
+      "path": "tasks/GithubFlowRelease"
     }
   ],
   "contributions": [
     {
-      "id": "github-version-task",
+      "id": "github-flow-version",
       "type": "ms.vss-distributed-task.task",
       "targets": ["ms.vss-distributed-task.tasks"],
       "properties": {
-        "name": "tasks/GithubVersionTask"
+        "name": "tasks/GithubFlowVersion"
+      }
+    },
+    {
+      "id": "github-flow-release",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "tasks/GithubFlowRelease"
       }
     }
   ]

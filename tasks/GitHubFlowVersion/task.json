@@ -1,46 +1,46 @@
 {
   "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
   "id": "e77a1433-b3fc-4a29-8d0e-cce20516b5e0",
-  "name": "GithubVersionTask",
-  "friendlyName": "Github Version Task",
-  "description": "Uses pull request history and tags to generate a semantic version",
+  "name": "GithubFlowVersion",
+  "friendlyName": "Github Flow Version",
+  "description": "Uses pull request history, releases and tags to generate a semantic version",
   "helpMarkDown": "",
   "category": "Utility",
   "author": "Jarlotee",
   "version": {
     "Major": 0,
     "Minor": 0,
-    "Patch": 18
+    "Patch": 33
   },
-  "instanceNameFormat": "Version",
+  "instanceNameFormat": "Github Flow Version",
   "inputs": [
     {
-      "name": "GitHubConnection",
+      "name": "gitHubConnection",
       "type": "connectedService:Github",
       "label": "GitHub Connection",
       "required": false,
       "helpMarkDown": "Specify the name of the GitHub service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
     },
     {
-      "name": "GitHubEnterpriseConnection",
+      "name": "gitHubEnterpriseConnection",
       "type": "connectedService:GithubEnterprise",
       "label": "GitHub Enterprise Connection",
       "required": false,
       "helpMarkDown": "Specify the name of the GitHub Enterprise service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
     },
     {
-      "name": "IsHotFix",
+      "name": "isHotFix",
       "type": "boolean",
       "label": "Hotfix",
       "required": false,
       "helpMarkDown": "Indicates whether the build is a hotfix. Ignores versioning in favor of adding build metadata."
     },
     {
-      "name": "PreReleaseDecorator",
+      "name": "preReleaseSuffix",
       "type": "string",
-      "label": "Pre-release Decorator",
+      "label": "Pre-release Suffix",
       "required": false,
-      "helpMarkDown": "A decorator to indicate a pre-release such as alpha, beta, or rc"
+      "helpMarkDown": "A suffix to indicate a pre-release such as alpha, beta, or rc"
     }
   ],
   "execution": {

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "8be13c24-b232-4e27-908a-02d659a42dd1",
+  "name": "GithubFlowRelease",
+  "friendlyName": "Github Flow Release",
+  "description": "Creates or updates a GitHub release based on supplied tag, body and other configuration",
+  "helpMarkDown": "",
+  "category": "Utility",
+  "author": "Jarlotee",
+  "version": {
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 33
+  },
+  "instanceNameFormat": "Github Flow Release",
+  "inputs": [
+    {
+      "name": "githubConnection",
+      "type": "connectedService:Github",
+      "label": "GitHub Connection",
+      "required": false,
+      "helpMarkDown": "Specify the name of the GitHub service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
+    },
+    {
+      "name": "githubEnterpriseConnection",
+      "type": "connectedService:GithubEnterprise",
+      "label": "GitHub Enterprise Connection",
+      "required": false,
+      "helpMarkDown": "Specify the name of the GitHub Enterprise service connection to use to connect to the repository. The connection must be based on a user's OAuth or a GitHub personal access token. Learn more about service connections [here](https://aka.ms/AA3am5s)."
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "label": "Tag",
+      "required": true,
+      "helpMarkDown": "The tag to be used on the release"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "label": "Name",
+      "required": false,
+      "helpMarkDown": "The name to be used on the release, if not specified the tag will be used"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "label": "Body",
+      "required": false,
+      "helpMarkDown": "The body to be used on the release"
+    },
+    {
+      "name": "draft",
+      "type": "boolean",
+      "label": "Draft",
+      "required": false,
+      "helpMarkDown": "Indicates that the draft flag should be set"
+    }
+  ],
+  "execution": {
+    "Node10": {
+      "target": "src/index.js"
+    }
+  }
+}
