@@ -13,7 +13,7 @@ export const HandleTask = async (githubConnection: string, config: Config) => {
   const existingRelease = await GetRelease(
     githubApiToken,
     githubRepository,
-    config.tag
+    config
   );
 
   if (existingRelease) {
@@ -32,7 +32,6 @@ export const HandleTask = async (githubConnection: string, config: Config) => {
     return;
   }
 
-  // ignores config.draft to force git tag creation
   const createdRelease = await CreateRelease(
     githubApiToken,
     githubRepository,
@@ -40,18 +39,6 @@ export const HandleTask = async (githubConnection: string, config: Config) => {
     parsedVersion,
     currentCommit
   );
-
-  // sets correct draft status
-  if (config.draft) {
-    await UpdateRelease(
-      githubApiToken,
-      githubRepository,
-      config,
-      parsedVersion,
-      currentCommit,
-      createdRelease.id
-    );
-  }
 
   console.log(
     `Created release [${createdRelease.id}] at ${createdRelease.url}`

@@ -10,7 +10,7 @@
   "version": {
     "Major": 0,
     "Minor": 0,
-    "Patch": 36
+    "Patch": 40
   },
   "instanceNameFormat": "Github Flow Release",
   "inputs": [

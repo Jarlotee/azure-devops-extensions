@@ -5,7 +5,7 @@ import { Config, GithubRepository, Version } from "../types";
 export const GetRelease = async (
   githubApiToken: string,
   githubRepository: GithubRepository,
-  tag: string
+  config: Config
 ) => {
   const options = {
     method: "GET",
@@ -15,18 +15,33 @@ export const GetRelease = async (
     },
   };
 
-  const releaseResponse = await fetch(
-    `${githubRepository.api}/repos/${githubRepository.owner}/${githubRepository.name}/releases/tags/${tag}`,
+  const releaseByTagResponse = await fetch(
+    `${githubRepository.api}/repos/${githubRepository.owner}/${githubRepository.name}/releases/tags/${config.tag}`,
     options
   );
 
-  if (!releaseResponse.ok) {
+  if (releaseByTagResponse.ok) {
+    const release = await releaseByTagResponse.json();
+    return { id: release.id as string, url: release.html_url as string };
+  }
+
+  const releasesResponse = await fetch(
+    `${githubRepository.api}/repos/${githubRepository.owner}/${githubRepository.name}/releases?per_page=25`,
+    options
+  );
+
+  if (!releasesResponse.ok) {
     return;
   }
 
-  const release = await releaseResponse.json();
+  const releases: any[] = await releasesResponse.json();
 
-  return { id: release.id as string, url: release.html_url as string };
+  const release_name = config.name ?? config.tag;
+  const release = releases.find((r) => r.name === release_name);
+
+  if (release) {
+    return { id: release.id as string, url: release.html_url as string };
+  }
 };
 
 export const CreateRelease = async (
@@ -43,7 +58,7 @@ export const CreateRelease = async (
       target_commitish: currentCommit,
       name: config.name ?? config.tag,
       body: config.body,
-      draft: false, // forces tag creation, setting to draft handled in task.json
+      draft: config.draft,
       prerelease: !!version.preRelease,
     }),
     headers: {
