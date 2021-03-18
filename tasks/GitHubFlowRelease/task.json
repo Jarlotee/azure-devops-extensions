@@ -9,8 +9,8 @@
   "author": "Jarlotee",
   "version": {
     "Major": 0,
-    "Minor": 0,
-    "Patch": 40
+    "Minor": 1,
+    "Patch": 0
   },
   "instanceNameFormat": "Github Flow Release",
   "inputs": [
