@@ -32,15 +32,15 @@ async function run() {
 
   const tagVersion = FormatVersion(version);
 
-  task.setVariable("GitHubFlow.Tag", tagVersion);
-  task.setVariable("GitHubFlow.Body", version.body);
+  task.setVariable("tag", tagVersion, false, true);
+  task.setVariable("body", version.body, false, true);
 
-  if (!existsSync("./.githubflow")) {
-    mkdirSync("./.githubflow");
+  if (!existsSync("./.version")) {
+    mkdirSync("./.version");
   }
 
-  writeFileSync("./.githubflow/tag", tagVersion);
-  writeFileSync("./.githubflow/body", version.body);
+  writeFileSync("./.version/tag", tagVersion);
+  writeFileSync("./.version/body", version.body);
 }
 
 run().catch((error) => task.setResult(task.TaskResult.Failed, error.message));
