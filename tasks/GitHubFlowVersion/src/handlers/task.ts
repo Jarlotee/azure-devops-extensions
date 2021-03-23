@@ -54,16 +54,20 @@ const GetLastReleaseTag = async (
     isReleased = await IsTagReleased(githubApiToken, githubRepository, tag);
   }
 
-  return tag || "0.1.0";
+  return tag;
 };
 
 const GetNextVersion = async (
-  lastReleaseTag: string,
+  lastReleaseTag: string | null,
   isHotfix: boolean,
   preReleaseSuffix: string | undefined,
   githubApiToken: string,
   githubRepository: GithubRepository
 ): Promise<VersionHistory> => {
+  if (!lastReleaseTag) {
+    return GetFirstReleaseVersion();
+  }
+
   if (isHotfix) {
     return GetNextHotfixVersion(lastReleaseTag, githubRepository);
   }
@@ -74,6 +78,15 @@ const GetNextVersion = async (
     githubApiToken,
     githubRepository
   );
+};
+
+const GetFirstReleaseVersion = (): VersionHistory => {
+  return {
+    major: 0,
+    minor: 1,
+    patch: 0,
+    body: "Initial Release",
+  };
 };
 
 const GetNextHotfixVersion = async (
