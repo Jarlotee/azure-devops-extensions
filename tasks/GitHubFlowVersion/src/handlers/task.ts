@@ -24,7 +24,11 @@ export const HandleTask = async (
     githubRepository
   );
 
-  console.log("Last Release Tag", lastReleaseTag);
+  if (!lastReleaseTag) {
+    console.log("No Prior Release Tag Found");
+  } else {
+    console.log("Last Release Tag", lastReleaseTag);
+  }
 
   const newVersion = await GetNextVersion(
     lastReleaseTag,
