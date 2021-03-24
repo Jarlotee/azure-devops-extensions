@@ -6,7 +6,8 @@ export interface Config {
   containerRegistry: string;
   repository: string;
   tag: string;
-  verificationPath?: string;
+  versionVerificationPath: string;
+  healthVerificationPath: string;
 }
 
 export interface DockerRepository {

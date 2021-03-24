@@ -3,14 +3,14 @@
   "id": "f496ce39-d30a-49ac-8507-6ace3b2f80e5",
   "name": "AzureWebAppContainerDeployment",
   "friendlyName": "Azure Web App Container Deployment",
-  "description": "Utalizes azure-cli to push a container image to an azure webapp, and optionally verifys the deployment by checking a url for a version tag",
+  "description": "Utilizes azure-cli to push a container image to an azure webapp, and optionally verifys the deployment by checking a url for a version tag",
   "helpMarkDown": "",
   "category": "Deploy",
   "author": "Jarlotee",
   "version": {
     "Major": 0,
     "Minor": 1,
-    "Patch": 7
+    "Patch": 9
   },
   "instanceNameFormat": "Azure Web App Container Deployment",
   "inputs": [
@@ -64,11 +64,20 @@
       "helpMarkDown": "The tag to be used on the release"
     },
     {
-      "name": "verificationPath",
+      "name": "versionVerificationPath",
       "type": "string",
-      "label": "Verification Path",
-      "required": false,
+      "label": "Version Verification Path",
+      "required": true,
+      "defaultValue": "/system/health",
       "helpMarkDown": "The relative path to an endpoint that adverstises the application version, to confirm deployment success"
+    },
+    {
+      "name": "healthVerificationPath",
+      "type": "string",
+      "label": "Health Verification Path",
+      "required": true,
+      "defaultValue": "/system/health",
+      "helpMarkDown": "The relative path to an endpoint that adverstises the application health, to confirm deployment success"
     }
   ],
   "execution": {

@@ -11,13 +11,11 @@ export const HandleTask = async (config: Config) => {
       `Deploying ${config.repository}:${config.tag} to ${config.webAppName} `
     );
     const registry = await GetRegistryDetails(config.containerRegistry);
+    const webAppUrl = Azure.GetWebAppUrl(config);
     Azure.Login(config.azureResourceManagerConnection);
     Azure.DeployContainerToWebApp(config, registry);
-
-    if (config.verificationPath) {
-      await VerifyContainerDeployment(config);
-    }
-
+    await VerifyVersion(config, webAppUrl);
+    await VerifyHealth(config, webAppUrl);
     console.log(`##[section] Deployment Complete! ( •_•)  ( •_•)>⌐■-■  (⌐■_■)`);
   } catch (error) {
     throw error;
@@ -26,22 +24,17 @@ export const HandleTask = async (config: Config) => {
   }
 };
 
-const VerifyContainerDeployment = async (config: Config) => {
-  const webAppUrl = Azure.GetWebAppUrl(config);
-  const webAppVerificationUrl = `https://${webAppUrl}${config.verificationPath}`;
+const VerifyVersion = async (config: Config, webAppUrl: string) => {
+  const webAppVerificationUrl = `https://${webAppUrl}${config.versionVerificationPath}`;
   let response: Response | undefined;
   let responseText: string | undefined;
+
+  console.log(`##[debug] Verifying version at ${webAppVerificationUrl}`);
 
   for (let i = 0; i < 30; i++) {
     response = await fetch(webAppVerificationUrl);
     responseText = await response.text();
 
-    console.log(
-      `debug verification loop [${i}]`,
-      response.status,
-      responseText,
-      responseText.match(`${config.tag}`)
-    );
     if (response.ok && responseText.match(`${config.tag}`)) {
       break;
     }
@@ -58,6 +51,18 @@ const VerifyContainerDeployment = async (config: Config) => {
   if (tagNotFound) {
     throw new Error(
       `Failed to confirm version ${config.tag} please check [${webAppVerificationUrl}]`
+    );
+  }
+};
+
+const VerifyHealth = async (config: Config, webAppUrl: string) => {
+  const webAppVerificationUrl = `https://${webAppUrl}${config.healthVerificationPath}`;
+  const response = await fetch(webAppVerificationUrl);
+
+  console.log(`##[debug] Verifying health at ${webAppVerificationUrl}`);
+  if (!response.ok) {
+    throw new Error(
+      `Deployment is unhealthy please check [${webAppVerificationUrl}]`
     );
   }
 };

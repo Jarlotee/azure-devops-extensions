@@ -129,7 +129,8 @@ export const GetWebAppUrl = (config: Config) => {
 
   const result = EnsureExecSync(
     "az",
-    options.reduce((a, b) => `${a} ${b}`)
+    options.reduce((a, b) => `${a} ${b}`),
+    true
   );
 
   return result.stdout.replace(/\s/g, "");

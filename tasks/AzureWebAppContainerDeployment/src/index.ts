@@ -13,7 +13,8 @@ async function run() {
     containerRegistry: task.getInput('containerRegistry', true) as string,
     repository: task.getInput('repository', true) as string,
     tag: task.getInput('tag', true) as string,
-    verificationPath: task.getInput('verificationPath', false),
+    versionVerificationPath: task.getInput('versionVerificationPath', true) as string,
+    healthVerificationPath: task.getInput('healthVerificationPath', true) as string,
   }
 
   await HandleTask(config);
