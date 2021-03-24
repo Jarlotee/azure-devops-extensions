@@ -10,9 +10,9 @@ export const HandleTask = async (config: Config) => {
     console.log(
       `Deploying ${config.repository}:${config.tag} to ${config.webAppName} `
     );
+    Azure.Login(config.azureResourceManagerConnection);
     const registry = await GetRegistryDetails(config.containerRegistry);
     const webAppUrl = Azure.GetWebAppUrl(config);
-    Azure.Login(config.azureResourceManagerConnection);
     Azure.DeployContainerToWebApp(config, registry);
     await VerifyVersion(config, webAppUrl);
     await VerifyHealth(config, webAppUrl);

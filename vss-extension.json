@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "azure-devops-extensions",
   "name": "Jarlotee's Azure Devops Extensions",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publisher": "jarlotee",
   "targets": [
     {
