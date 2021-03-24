@@ -6,10 +6,11 @@
     "@types/node": "^14.14.33",
     "@types/node-fetch": "^2.5.8",
     "@types/q": "^1.5.4",
+    "@types/whatwg-url": "^8.2.0",
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "build": "tsc tasks/GithubFlowVersion/src/index.ts && tsc tasks/GithubFlowRelease/src/index.ts"
+    "build": "tsc tasks/GithubFlowVersion/src/index.ts && tsc tasks/GithubFlowRelease/src/index.ts && tsc tasks/AzureWebAppContainerDeployment/src/index.ts"
   },
   "author": "Jarlotee",
   "license": "MIT"
