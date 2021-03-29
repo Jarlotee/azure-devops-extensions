@@ -68,7 +68,6 @@ export const GetPullRequestNumbers = async (lastReleaseTag: string) => {
   const history = await git.log([
     `${lastReleaseTag}..HEAD`,
     "--reverse",
-    "--pretty=%s",
     "--grep",
     "Merge pull request #*",
   ]);
@@ -77,7 +76,7 @@ export const GetPullRequestNumbers = async (lastReleaseTag: string) => {
 
   for (let i = 0; i < history.total; i++) {
     const item = history.all[i];
-    const pullRequestNumberMatch = item.hash.match(
+    const pullRequestNumberMatch = item.message.match(
       /Merge pull request #([0-9]+) from */
     );
 
