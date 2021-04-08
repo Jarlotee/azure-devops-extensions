@@ -10,7 +10,8 @@
     "typescript": "^4.0.2"
   },
   "scripts": {
-    "build": "tsc tasks/GithubFlowVersion/src/index.ts && tsc tasks/GithubFlowRelease/src/index.ts && tsc tasks/AzureWebAppContainerDeployment/src/index.ts"
+    "build": "tsc tasks/GithubFlowVersion/src/index.ts && tsc tasks/GithubFlowRelease/src/index.ts && tsc tasks/AzureWebAppContainerDeployment/src/index.ts && tsc tasks/AzureFunctionAppContainerDeployment/src/index.ts",
+    "package": "tfx extension create --manifest-globs vss-extension.json"
   },
   "author": "Jarlotee",
   "license": "MIT"
