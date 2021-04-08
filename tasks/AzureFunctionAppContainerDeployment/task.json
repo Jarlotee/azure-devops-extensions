@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "d4944571-bc71-436f-bcff-c471b39ec9d0",
+  "name": "AzureFunctionAppContainerDeployment",
+  "friendlyName": "Azure Function App Container Deployment",
+  "description": "Utilizes azure-cli to push a container image to an azure function app, and optionally verifys the deployment by checking a url for a version tag",
+  "helpMarkDown": "",
+  "category": "Deploy",
+  "author": "Jarlotee",
+  "version": {
+    "Major": 0,
+    "Minor": 1,
+    "Patch": 0
+  },
+  "instanceNameFormat": "Azure Web App Container Deployment",
+  "inputs": [
+    {
+      "name": "azureResourceManagerConnection",
+      "type": "connectedService:AzureRM",
+      "label": "Azure Resource Manager Connection",
+      "required": true,
+      "helpMarkDown": "Select an Azure Resource Manager Connection for the deployment"
+    },
+    {
+      "name": "resourceGroupName",
+      "type": "string",
+      "label": "Resource Group Name",
+      "required": true,
+      "helpMarkDown": "Provide the name of the resource group containing your function app"
+    },
+    {
+      "name": "functionAppName",
+      "type": "string",
+      "label": "Web App Name",
+      "required": true,
+      "helpMarkDown": "Provide the name of the function app"
+    },
+    {
+      "name": "slot",
+      "type": "string",
+      "label": "Deployment Slot",
+      "required": false,
+      "helpMarkDown": "Provide the name of the function app"
+    },
+    {
+      "name": "containerRegistry",
+      "type": "connectedService:dockerregistry",
+      "label": "Container registry",
+      "required": true,
+      "helpMarkDown": "Select a Docker registry service connection. Required for commands that need to authenticate with a registry."
+    },
+    {
+      "name": "repository",
+      "label": "Container repository",
+      "type": "string",
+      "required": true,
+      "helpMarkDown": "Name of the repository."
+    },
+    {
+      "name": "tag",
+      "type": "string",
+      "label": "Tag",
+      "required": true,
+      "helpMarkDown": "The tag to be used on the release"
+    },
+    {
+      "name": "versionVerificationPath",
+      "type": "string",
+      "label": "Version Verification Path",
+      "required": true,
+      "defaultValue": "/api/health",
+      "helpMarkDown": "The relative path to an endpoint that adverstises the application version, to confirm deployment success"
+    },
+    {
+      "name": "healthVerificationPath",
+      "type": "string",
+      "label": "Health Verification Path",
+      "required": true,
+      "defaultValue": "/api/health",
+      "helpMarkDown": "The relative path to an endpoint that adverstises the application health, to confirm deployment success"
+    }
+  ],
+  "execution": {
+    "Node10": {
+      "target": "src/index.js"
+    }
+  }
+}

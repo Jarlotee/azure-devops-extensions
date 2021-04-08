@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "azure-devops-extensions",
   "name": "Jarlotee's Azure Devops Extensions",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "publisher": "jarlotee",
   "targets": [
     {
@@ -23,6 +23,9 @@
     },
     {
       "path": "tasks/AzureWebAppContainerDeployment"
+    },
+    {
+      "path": "tasks/AzureFunctionAppContainerDeployment"
     }
   ],
   "contributions": [
@@ -48,6 +51,14 @@
       "targets": ["ms.vss-distributed-task.tasks"],
       "properties": {
         "name": "tasks/AzureWebAppContainerDeployment"
+      }
+    },
+    {
+      "id": "azure-functionapp-container-deployment",
+      "type": "ms.vss-distributed-task.task",
+      "targets": ["ms.vss-distributed-task.tasks"],
+      "properties": {
+        "name": "tasks/AzureFunctionAppContainerDeployment"
       }
     }
   ]
