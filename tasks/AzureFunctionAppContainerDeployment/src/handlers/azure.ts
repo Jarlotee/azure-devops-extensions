@@ -82,7 +82,7 @@ const GetPasswordByAuthenticationType = (
   }
 };
 
-export const DeployContainerToWebApp = (
+export const DeployContainerToFunctionApp = (
   config: Config,
   registry: DockerRepository
 ) => {
@@ -114,7 +114,7 @@ export const DeployContainerToWebApp = (
   );
 };
 
-export const GetWebAppUrl = (config: Config) => {
+export const GetFunctionAppUrl = (config: Config) => {
   const options = [] as string[];
   options.push(`functionapp show`);
   options.push(`-g "${config.resourceGroupName}"`);

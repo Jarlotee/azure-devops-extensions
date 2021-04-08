@@ -12,8 +12,8 @@ export const HandleTask = async (config: Config) => {
     );
     Azure.Login(config.azureResourceManagerConnection);
     const registry = await GetRegistryDetails(config.containerRegistry);
-    const functionAppUrl = Azure.GetWebAppUrl(config);
-    Azure.DeployContainerToWebApp(config, registry);
+    const functionAppUrl = Azure.GetFunctionAppUrl(config);
+    Azure.DeployContainerToFunctionApp(config, registry);
     await VerifyVersion(config, functionAppUrl);
     await VerifyHealth(config, functionAppUrl);
     console.log(`##[section] Deployment Complete! ( •_•)  ( •_•)>⌐■-■  (⌐■_■)`);
