@@ -59,7 +59,7 @@ export const GetNearestTag = async (before?: string) => {
     ]);
 
     return tag.replace(/^\s+|\s+$/g, "");
-  } catch (error) {}
+  } catch (error) { }
 
   return null;
 };
@@ -69,19 +69,31 @@ export const GetPullRequestNumbers = async (lastReleaseTag: string) => {
     `${lastReleaseTag}..HEAD`,
     "--reverse",
     "--grep",
-    "Merge pull request #*",
+    "#[0-9]*",
   ]);
 
   const pullRequestNumbers = [];
 
   for (let i = 0; i < history.total; i++) {
     const item = history.all[i];
-    const pullRequestNumberMatch = item.message.match(
+
+    // merge commit
+    const mergePullRequestNumberMatch = item.message.match(
       /Merge pull request #([0-9]+) from */
     );
 
-    if (pullRequestNumberMatch) {
-      pullRequestNumbers.push(parseInt(pullRequestNumberMatch[1]));
+    if (mergePullRequestNumberMatch) {
+      pullRequestNumbers.push(parseInt(mergePullRequestNumberMatch[1]));
+    } else {
+
+      // squash commit (consider checking EOL $)
+      const squashPullRequestNumberMatch = item.message.match(
+        /\(#([0-9]+)\)/
+      );
+
+      if (squashPullRequestNumberMatch) {
+        pullRequestNumbers.push(parseInt(squashPullRequestNumberMatch[1]));
+      }
     }
   }
 
