@@ -25,6 +25,7 @@ export const IsTagReleased = async (
   );
 
   if (!releaseResponse.ok) {
+    console.log("Error calling", githubRepository.api, "to check released tag", tag, "response", releaseResponse.status);
     return false;
   }
 
