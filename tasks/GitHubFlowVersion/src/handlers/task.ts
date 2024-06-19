@@ -159,8 +159,11 @@ const GetNextPullRequestVersion = async (
 
     if (pullRequest.isMajor) {
       newVersion.major = newVersion.major + 1;
+      newVersion.minor = 0;
+      newVersion.patch = 0;
     } else if (pullRequest.isMinor) {
       newVersion.minor = newVersion.minor + 1;
+      newVersion.patch = 0;
     } else {
       newVersion.patch = newVersion.patch + 1;
     }
