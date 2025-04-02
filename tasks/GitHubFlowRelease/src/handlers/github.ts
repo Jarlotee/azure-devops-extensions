@@ -21,7 +21,7 @@ export const GetRelease = async (
   );
 
   if (releaseByTagResponse.ok) {
-    const release = await releaseByTagResponse.json();
+    const release = await releaseByTagResponse.json() as any;
     return { id: release.id as string, url: release.html_url as string };
   }
 
@@ -34,7 +34,7 @@ export const GetRelease = async (
     return;
   }
 
-  const releases: any[] = await releasesResponse.json();
+  const releases: any[] = await releasesResponse.json() as any;
 
   const release_name = config.name ?? config.tag;
   const release = releases.find((r) => r.name === release_name);
@@ -78,7 +78,7 @@ export const CreateRelease = async (
     throw new Error(`Error creating release [${releaseResponse.statusText}]`);
   }
 
-  const release = await releaseResponse.json();
+  const release = await releaseResponse.json() as any;
 
   return { id: release.id as string, url: release.html_url as string };
 };
@@ -118,7 +118,7 @@ export const UpdateRelease = async (
     throw new Error(`Error updating release [${releaseResponse.statusText}]`);
   }
 
-  const release = await releaseResponse.json();
+  const release = await releaseResponse.json() as any;
 
   return { id: release.id as string, url: release.html_url as string };
 };

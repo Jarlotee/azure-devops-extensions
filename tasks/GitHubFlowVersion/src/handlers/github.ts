@@ -29,7 +29,7 @@ export const IsTagReleased = async (
     return false;
   }
 
-  const release = await releaseResponse.json();
+  const release = await releaseResponse.json() as any;
   const isDraft = release.draft as boolean;
 
   return !isDraft;
@@ -59,7 +59,7 @@ export const GetPullRequest = async (
     );
   }
 
-  const pullRequest = await pullRequestResponse.json();
+  const pullRequest = await pullRequestResponse.json() as any;
   const isMajor = HasLabel(pullRequest.labels, "major-version");
   const isMinor = HasLabel(pullRequest.labels, "minor-version");
 
