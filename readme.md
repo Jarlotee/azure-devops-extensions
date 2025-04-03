@@ -1,5 +1,9 @@
 # Azure Devops Extensions
 
+## Libraries
+
+Fetch became natively supported in node 21, but ADO is currently max on Node 20, so for now stick with node-fetch 2.x
+
 ## Setup 
 Ensure that you have the Azure Devops Extension tooling installed
 
