@@ -1,8 +1,8 @@
 {
   "name": "github-flow-release",
   "dependencies": {
-    "azure-pipelines-task-lib": "^5.0.0",
+    "azure-pipelines-task-lib": "^5.2.8",
     "node-fetch": "^2.7.0",
-    "simple-git": "^3.27.0"
+    "simple-git": "^3.32.3"
   }
 }
