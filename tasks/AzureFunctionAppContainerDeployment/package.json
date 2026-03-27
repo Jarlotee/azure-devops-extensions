@@ -1,7 +1,7 @@
 {
   "name": "azure-functionapp-container-deployment",
   "dependencies": {
-    "azure-pipelines-task-lib": "^5.0.0",
+    "azure-pipelines-task-lib": "^5.2.8",
     "node-fetch": "^2.7.0",
     "whatwg-url": "^14.2.0"
   }
